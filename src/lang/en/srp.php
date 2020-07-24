@@ -3,7 +3,7 @@
 return [
     'srp' => 'SRP',
     'shipType' => 'Ship Type',
-    'costs' => 'Ship Cost',
+    'costs' => 'Ship Cost (ISK)',
     'paidout' => 'Paid Out',
     'characterName' => 'Character Name',
     'request' => 'Request SRP',
