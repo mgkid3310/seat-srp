@@ -46,7 +46,7 @@
                   <td><span class='id-to-name' data-id="{{ $kill->character_name }}">{{ $kill->character_name }}</span></td>
                   <td>{{ $kill->ship_type }}</td>
                   <td>
-                      <input id="costInput" name="costInput" value="{{ number_format($kill->cost, 2) }}"></input>
+                      <input id="costInput-{{ $kill->kill_id }}" name="costInput-{{ $kill->kill_id }}" value="{{ number_format($kill->cost, 2) }}"></input>
                   </td>
                   @if ($kill->approved === 0)
                     <td id="id-{{ $kill->kill_id }}"><span class="badge badge-warning">Pending</span></td>
