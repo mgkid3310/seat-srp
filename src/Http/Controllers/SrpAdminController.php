@@ -4,6 +4,7 @@ namespace Denngarr\Seat\SeatSrp\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Seat\Web\Http\Controllers\Controller;
 use Denngarr\Seat\SeatSrp\Models\KillMail;
