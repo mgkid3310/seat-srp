@@ -312,7 +312,7 @@
           } else if (data.name === "Pending") {
               $("#id-"+data.value).html('<span class="badge badge-warning">Pending</span>');
           }
-          $("#approver-"+data.value).html(data.approver);
+          $("#approver-"(selection.value).html(selection.approver);
         });
     });
 
