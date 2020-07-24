@@ -2,7 +2,7 @@
 
 return [
     'shipType' => '船型',
-    'costs' => '花费',
+    'costs' => '花费 (ISK)',
     'paidout' => '已打款',
     'characterName' => '角色名',
     'request' => '申请补损',
