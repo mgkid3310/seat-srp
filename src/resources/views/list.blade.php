@@ -300,7 +300,7 @@
           headers: function() {},
           url: "{{ route('srpadmin.list') }}/" + btn.target.name + "/" + $(btn.target).text(),
           dataType: 'json',
-          data: 'cost=' + encodeURIComponent($('#costInput').val()),
+          data: 'cost=' + encodeURIComponent($('#costInput-{{ $kill->kill_id }}').val()),
           timeout: 5000
         }).done(function (data) {
           if (data.name === "Approve") {
