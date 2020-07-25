@@ -45,7 +45,7 @@
                   <td><span rel='id-to-name'>{{ $kill->character_name }}</span></td>
                   <td>{{ $kill->ship_type }}</td>
                   <td>
-                      <input id="costInput-{{ $kill->kill_id }}" name="costInput-{{ $kill->kill_id }}" value="{{ number_format($kill->cost, 2) }}"></input>
+                      <input id="costInput-{{ $kill->kill_id }}" value="{{ number_format($kill->cost, 2) }}"></input>
                   </td>
                   @if ($kill->approved === 0)
                     <td id="id-{{ $kill->kill_id }}"><span class="label label-warning">Pending</span></td>
@@ -241,7 +241,7 @@
           headers: function() {},
           url: "{{ route('srpadmin.list') }}/" + btn.target.name + "/" + $(btn.target).text(),
           dataType: 'json',
-          data: 'cost=' + encodeURIComponent($('#costInput-{{ btn.target.name }}').val()),
+          data: 'cost=' + encodeURIComponent($("#costInput-" + btn.target.name).val()),
           timeout: 5000
       }).done(function (selection) {
           if (selection.name === "Approve") {
