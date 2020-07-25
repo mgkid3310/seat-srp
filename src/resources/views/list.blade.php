@@ -246,11 +246,11 @@
       }).done(function (selection) {
           if (selection.name === "Approve") {
               $("#id-"+selection.value).html('<span class="label label-success">Approved</span>');
-          } else if +selection.name === "Reject") {
+          } else if (selection.name === "Reject") {
               $("#id-"+selection.value).html('<span class="label label-danger">Rejected</span>');
-          } else if +selection.name === "Paid Out") {
+          } else if (selection.name === "Paid Out") {
               $("#id-"+selection.value).html('<span class="label label-primary">Paid Out</span>');
-          } else if +selection.name === "Pending") {
+          } else if (selection.name === "Pending") {
               $("#id-"+selection.value).html('<span class="label label-warning">Pending</span>');
           }
           $("#approver-"+selection.value).html(selection.approver);
