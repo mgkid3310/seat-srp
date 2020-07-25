@@ -396,7 +396,7 @@
                 kmFormGroup.find('span.help-block').show();
             });
         });
-        id_to_names();
+        ids_to_names();
     </script>
 
 @endpush
