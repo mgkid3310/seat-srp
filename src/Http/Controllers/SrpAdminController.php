@@ -23,9 +23,6 @@ class SrpAdminController extends Controller
     public function srpApprove($kill_id, $action, $cost) {
         $killmail = KillMail::find($kill_id);
 
-        $response = (new Client())->request('GET', $request->costInput);
-        $cost = json_decode($response->getBody());
-
         switch ($action)
         {
             case 'Approve':
@@ -43,7 +40,7 @@ class SrpAdminController extends Controller
         }
 
         $killmail->approver = auth()->user()->name;
-        $killmail->cost = (double)(cost.replace(/,/g, ''));
+        $killmail->cost = (double)$cost;
         $killmail->save();
 
         return json_encode(['name' => $action, 'value' => $kill_id, 'approver' => auth()->user()->name]);
