@@ -82,7 +82,6 @@
                   <th>{{ trans('srp::srp.costs') }}</th>
                   <th>{{ trans('srp::srp.paidout') }}</th>
                   <th>{{ trans('srp::srp.submitted') }}</th>
-                  <th>{{ trans('srp::srp.action') }}</th>
                   <th>{{ trans('srp::srp.changedby') }}</th>
                 </tr>
             </thead>
@@ -101,7 +100,9 @@
                   <td><span rel='id-to-name'>{{ $kill->character_name }}</span></td>
                   <td>{{ $kill->ship_type }}</td>
                   <td>
-                      <input id="costInput-{{ $kill->kill_id }}" value="{{ number_format($kill->cost, 2) }}"></input>
+                      <button type="button" class="btn btn-xs btn-link" data-toggle="modal" data-target="#insurances" data-kill-id="{{ $kill->kill_id }}">
+                          {{ number_format($kill->cost, 2) }} ISK
+                      </button>
                   </td>
                   @if ($kill->approved === 0)
                     <td id="id-{{ $kill->kill_id }}"><span class="label label-warning">Pending</span></td>
@@ -114,12 +115,6 @@
                   @endif
                   <td data-order="{{ strtotime($kill->created_at) }}>
                       <span data-toggle="tooltip" data-placement="top" title="{{ $kill->created_at }}">{{ human_diff($kill->created_at) }}</span>
-                  </td>
-                  <td>
-                      <button type="button" class="btn btn-xs btn-warning srp-status" id="srp-status" name="{{ $kill->kill_id }}">Pending</button>
-                      <button type="button" class="btn btn-xs btn-danger srp-status" id="srp-status" name="{{ $kill->kill_id }}">Reject</button>
-                      <button type="button" class="btn btn-xs btn-success srp-status" id="srp-status" name="{{ $kill->kill_id }}">Approve</button>
-                      <button type="button" class="btn btn-xs btn-primary srp-status" id="srp-status" name="{{ $kill->kill_id }}">Paid Out</button>
                   </td>
                   <td id="approver-{{ $kill->kill_id }}">{{ $kill->approver }}</td>
                 </tr>
