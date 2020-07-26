@@ -240,7 +240,7 @@
     $('#srps tbody').on('click', 'button', function(btn) {
         $.ajax({
           headers: function() {},
-          url: "{{ route('srpadmin.list') }}/" + btn.target.name + "/" + $(btn.target).text() + "/" + $("#costInput-" + btn.target.name).val(),
+          url: "{{ route('srpadmin.list') }}/" + btn.target.name + "/" + $(btn.target).text() + "/" + $("#costInput-" + btn.target.name).val().replace(/,/g, ''),
           dataType: 'json',
           timeout: 5000
       }).done(function (selection) {
