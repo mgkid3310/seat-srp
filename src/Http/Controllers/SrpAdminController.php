@@ -19,11 +19,8 @@ class SrpAdminController extends Controller {
         return view('srp::list', compact('killmails'));
     }
 
-    public function srpApprove($kill_id, $action, Request $request) {
+    public function srpApprove($kill_id, $action, $cost) {
         $killmail = KillMail::find($kill_id);
-
-        $response = (new Client())->request('GET', $request->cost);
-        $cost = json_decode($response->getBody());
 
         switch ($action)
         {

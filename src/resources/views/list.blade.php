@@ -239,9 +239,8 @@
     $('#srps tbody').on('click', 'button', function(btn) {
         $.ajax({
           headers: function() {},
-          url: "{{ route('srpadmin.list') }}/" + btn.target.name + "/" + $(btn.target).text(),
+          url: "{{ route('srpadmin.list') }}/" + btn.target.name + "/" + $(btn.target).text() + "/" + $("#costInput-" + btn.target.name).val(),
           dataType: 'json',
-          data: 'cost=' + encodeURIComponent($("#costInput-" + btn.target.name).val()),
           timeout: 5000
       }).done(function (selection) {
           if (selection.name === "Approve") {
