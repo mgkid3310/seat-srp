@@ -43,7 +43,7 @@ class SrpAdminController extends Controller
         }
 
         $killmail->approver = auth()->user()->name;
-        $killmail->cost = (double)$cost;
+        $killmail->cost = (double)$cost.replace(',', '');
         $killmail->save();
 
         return json_encode(['name' => $action, 'value' => $kill_id, 'approver' => auth()->user()->name]);
