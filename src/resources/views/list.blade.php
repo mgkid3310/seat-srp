@@ -113,9 +113,7 @@
                   <td><span class='id-to-name' data-id="{{ $kill->character_name }}">{{ $kill->character_name }}</span></td>
                   <td>{{ $kill->ship_type }}</td>
                   <td>
-                      <button type="button" class="btn btn-xs btn-link" data-toggle="modal" data-target="#insurances" data-kill-id="{{ $kill->kill_id }}">
-                          {{ number_format($kill->cost, 2) }} ISK
-                      </button>
+                      <input id="costInput-{{ $kill->kill_id }}" value="{{ number_format($kill->cost, 2) }}"></input>
                   </td>
                   @if ($kill->approved === 0)
                     <td id="id-{{ $kill->kill_id }}"><span class="badge badge-warning">Pending</span></td>
