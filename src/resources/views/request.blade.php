@@ -61,7 +61,7 @@
                     <tr>
                         <td><a href="https://zkillboard.com/kill/{{ $kill->kill_id }}/"
                                target="_blank">{{ $kill->kill_id }}</a>
-                            @if(!is_null($kill->ping())) 
+                            @if(!is_null($kill->ping()))
                             <button class="btn btn-xs btn-link" data-toggle="modal" data-target="#srp-ping" data-kill-id="{{ $kill->kill_id }}">
                                 <i class="fa fa-comment"></i>
                             </button>
@@ -396,7 +396,6 @@
                 kmFormGroup.find('span.help-block').show();
             });
         });
-        ids_to_names();
     </script>
 
 @endpush
