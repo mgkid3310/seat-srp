@@ -44,9 +44,7 @@
                   </td>
                   <td><a class='id-to-name' data-id="{{ $kill->character_name }}">{{ $kill->character_name }}</a></td>
                   <td>{{ $kill->ship_type }}</td>
-                  <td>
-                      <input id="costInput-{{ $kill->kill_id }}" name="costInput-{{ $kill->kill_id }}" value="{{ number_format($kill->cost, 2) }}"></input>
-                  </td>
+                  <td><input id="costInput-{{ $kill->kill_id }}" value="{{ number_format($kill->cost, 2) }}"></input></td>
                   @if ($kill->approved === 0)
                     <td id="id-{{ $kill->kill_id }}"><span class="label label-warning">Pending</span></td>
                   @elseif ($kill->approved === -1)
@@ -82,6 +80,7 @@
                   <th>{{ trans('srp::srp.costs') }}</th>
                   <th>{{ trans('srp::srp.paidout') }}</th>
                   <th>{{ trans('srp::srp.submitted') }}</th>
+                  <th>{{ trans('srp::srp.action') }}</th>
                   <th>{{ trans('srp::srp.changedby') }}</th>
                 </tr>
             </thead>
@@ -99,11 +98,7 @@
                   </td>
                   <td><span rel='id-to-name'>{{ $kill->character_name }}</span></td>
                   <td>{{ $kill->ship_type }}</td>
-                  <td>
-                      <button type="button" class="btn btn-xs btn-link" data-toggle="modal" data-target="#insurances" data-kill-id="{{ $kill->kill_id }}">
-                          {{ number_format($kill->cost, 2) }} ISK
-                      </button>
-                  </td>
+                  <td><input id="costInput-{{ $kill->kill_id }}" value="{{ number_format($kill->cost, 2) }}"></input></td>
                   @if ($kill->approved === 0)
                     <td id="id-{{ $kill->kill_id }}"><span class="label label-warning">Pending</span></td>
                   @elseif ($kill->approved === -1)
@@ -115,6 +110,12 @@
                   @endif
                   <td data-order="{{ strtotime($kill->created_at) }}>
                       <span data-toggle="tooltip" data-placement="top" title="{{ $kill->created_at }}">{{ human_diff($kill->created_at) }}</span>
+                  </td>
+                  <td>
+                      <button type="button" class="btn btn-xs btn-warning srp-status" id="srp-status" name="{{ $kill->kill_id }}">Pending</button>
+                      <button type="button" class="btn btn-xs btn-danger srp-status" id="srp-status" name="{{ $kill->kill_id }}">Reject</button>
+                      <button type="button" class="btn btn-xs btn-success srp-status" id="srp-status" name="{{ $kill->kill_id }}">Approve</button>
+                      <button type="button" class="btn btn-xs btn-primary srp-status" id="srp-status" name="{{ $kill->kill_id }}">Paid Out</button>
                   </td>
                   <td id="approver-{{ $kill->kill_id }}">{{ $kill->approver }}</td>
                 </tr>
@@ -238,21 +239,40 @@
     $('#srps tbody').on('click', 'button', function(btn) {
         $.ajax({
           headers: function() {},
-          url: "{{ route('srpadmin.list') }}/" + btn.target.name + "/" + $(btn.target).text(),
+          url: "{{ route('srpadmin.list') }}/" + btn.target.name + "/" + $(btn.target).text() + "/" + $("#costInput-" + btn.target.name).val().replace(/,/g, ''),
           dataType: 'json',
-          data: 'costInput=' + encodeURIComponent($('#costInput').val()),
           timeout: 5000
-        }).done(function (data) {
-          if (data.name === "Approve") {
-              $("#id-"+data.value).html('<span class="label label-success">Approved</span>');
-          } else if (data.name === "Reject") {
-              $("#id-"+data.value).html('<span class="label label-danger">Rejected</span>');
-          } else if (data.name === "Paid Out") {
-              $("#id-"+data.value).html('<span class="label label-primary">Paid Out</span>');
-          } else if (data.name === "Pending") {
-              $("#id-"+data.value).html('<span class="label label-warning">Pending</span>');
+      }).done(function (selection) {
+          if (selection.name === "Approve") {
+              $("#id-"+selection.value).html('<span class="label label-success">Approved</span>');
+          } else if (selection.name === "Reject") {
+              $("#id-"+selection.value).html('<span class="label label-danger">Rejected</span>');
+          } else if (selection.name === "Paid Out") {
+              $("#id-"+selection.value).html('<span class="label label-primary">Paid Out</span>');
+          } else if (selection.name === "Pending") {
+              $("#id-"+selection.value).html('<span class="label label-warning">Pending</span>');
           }
-          $("#approver-"+data.value).html(data.approver);
+          $("#approver-"+selection.value).html(selection.approver);
+        });
+    });
+
+    $('#srps-arch tbody').on('click', 'button', function(btn) {
+        $.ajax({
+          headers: function() {},
+          url: "{{ route('srpadmin.list') }}/" + btn.target.name + "/" + $(btn.target).text() + "/" + $("#costInput-" + btn.target.name).val().replace(/,/g, ''),
+          dataType: 'json',
+          timeout: 5000
+      }).done(function (selection) {
+          if (selection.name === "Approve") {
+              $("#id-"+selection.value).html('<span class="label label-success">Approved</span>');
+          } else if (selection.name === "Reject") {
+              $("#id-"+selection.value).html('<span class="label label-danger">Rejected</span>');
+          } else if (selection.name === "Paid Out") {
+              $("#id-"+selection.value).html('<span class="label label-primary">Paid Out</span>');
+          } else if (selection.name === "Pending") {
+              $("#id-"+selection.value).html('<span class="label label-warning">Pending</span>');
+          }
+          $("#approver-"+selection.value).html(selection.approver);
         });
     });
 

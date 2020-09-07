@@ -87,7 +87,7 @@ Route::group([
             'middleware' => 'can:srp.settle'
         ]);
 
-        Route::get('/admin/{kill_id}/{action}', [
+        Route::get('/admin/{kill_id}/{action}/{cost}', [
             'as'   => 'srpadmin.settle',
             'uses' => 'SrpAdminController@srpApprove',
             'middleware' => 'can:srp.settle'
