@@ -313,7 +313,7 @@
           } else if (data.name === "Pending") {
               $("#id-"+data.value).html('<span class="badge badge-warning">Pending</span>');
           }
-          $("#approver-"+selection.value).html(selection.approver);
+          $("#approver-"+data.value).html(data.approver);
         });
     });
 
@@ -333,7 +333,7 @@
           } else if (selection.name === "Pending") {
               $("#id-"+selection.value).html('<span class="badge badge-warning">Pending</span>');
           }
-          $("#approver-"+selection.value).html(selection.approver);
+          $("#approver-"+data.value).html(data.approver);
         });
     });
     ids_to_names();
