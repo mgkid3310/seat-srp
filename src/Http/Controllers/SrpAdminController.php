@@ -25,6 +25,9 @@ class SrpAdminController extends Controller
         $killmail = KillMail::find($kill_id);
 
         switch ($action) {
+        $response = (new Client())->request('GET', $request->costInput);
+        $costInput = json_decode($response->getBody());
+
             case 'Approve':
                 $killmail->approved = '1';
                 break;
@@ -40,6 +43,7 @@ class SrpAdminController extends Controller
         }
 
         $killmail->approver = auth()->user()->name;
+        $killmail->cost = $costInput;
         $killmail->save();
 
         return json_encode(['name' => $action, 'value' => $kill_id, 'approver' => auth()->user()->name]);
@@ -52,18 +56,18 @@ class SrpAdminController extends Controller
 
         $killmail  = Killmail::find($kill_id);
 
-        
+
 
         if (is_null($killmail))
         return redirect()->back()
             ->with('error', trans('srp::srp.not_found'));
 
         $reason = $killmail->reason();
-        if (!is_null($reason)) 
+        if (!is_null($reason))
             $reason->delete();
 
         KillMail::addNote($request->input('srpKillId'), 'reason', $request->input('srpReasonContent'));
-        
+
         return redirect()->back()
                          ->with('success', trans('srp::srp.note_updated'));
     }

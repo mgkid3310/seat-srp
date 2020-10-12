@@ -46,7 +46,7 @@
                   <td><span class='id-to-name' data-id="{{ $kill->character_name }}">{{ $kill->character_name }}</span></td>
                   <td>{{ $kill->ship_type }}</td>
                   <td>
-                      <input value="{{ number_format($kill->cost, 2) }}"></input>
+                      <input id="costInput" name="costInput" value="{{ number_format($kill->cost, 2) }}"></input>
                   </td>
                   @if ($kill->approved === 0)
                     <td id="id-{{ $kill->kill_id }}"><span class="badge badge-warning">Pending</span></td>
@@ -65,7 +65,7 @@
                       <button type="button" class="btn btn-xs btn-danger srp-status" id="srp-status" name="{{ $kill->kill_id }}">Reject</button>
                       <button type="button" class="btn btn-xs btn-success srp-status" id="srp-status" name="{{ $kill->kill_id }}">Approve</button>
                       <button type="button" class="btn btn-xs btn-primary srp-status" id="srp-status" name="{{ $kill->kill_id }}">Paid Out</button>
-                  </td>                 
+                  </td>
                   <td>
                   @if(!is_null($kill->reason()))
                       <button class="btn btn-xs btn-link" data-toggle="modal" data-target="#srp-reason" data-kill-id="{{ $kill->kill_id }}">
@@ -300,6 +300,7 @@
           headers: function() {},
           url: "{{ route('srpadmin.list') }}/" + btn.target.name + "/" + $(btn.target).text(),
           dataType: 'json',
+          data: 'costInput=' + encodeURIComponent($('#costInput').val()),
           timeout: 5000
         }).done(function (data) {
           if (data.name === "Approve") {
