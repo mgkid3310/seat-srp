@@ -323,15 +323,15 @@
           url: "{{ route('srpadmin.list') }}/" + btn.target.name + "/" + $(btn.target).text() + "/" + $("#costInput-" + btn.target.name).val().replace(/,/g, ''),
           dataType: 'json',
           timeout: 5000
-      }).done(function (selection) {
-          if (selection.name === "Approve") {
-              $("#id-"+selection.value).html('<span class="badge badge-success">Approved</span>');
-          } else if (selection.name === "Reject") {
-              $("#id-"+selection.value).html('<span class="badge badge-danger">Rejected</span>');
-          } else if (selection.name === "Paid Out") {
-              $("#id-"+selection.value).html('<span class="badge badge-primary">Paid Out</span>');
-          } else if (selection.name === "Pending") {
-              $("#id-"+selection.value).html('<span class="badge badge-warning">Pending</span>');
+      }).done(function (data) {
+          if (data.name === "Approve") {
+              $("#id-"+data.value).html('<span class="badge badge-success">Approved</span>');
+          } else if (data.name === "Reject") {
+              $("#id-"+data.value).html('<span class="badge badge-danger">Rejected</span>');
+          } else if (data.name === "Paid Out") {
+              $("#id-"+data.value).html('<span class="badge badge-primary">Paid Out</span>');
+          } else if (data.name === "Pending") {
+              $("#id-"+data.value).html('<span class="badge badge-warning">Pending</span>');
           }
           $("#approver-"+data.value).html(data.approver);
         });
